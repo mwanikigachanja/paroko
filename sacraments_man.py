@@ -117,5 +117,11 @@ if __name__ == "__main__":
     window = SacramentsManagementGUI()
     window.show()
 
+    window = SacramentsManagementGUI()
+    window.show()
+
+    # Load sacrament records into the table
+    window.load_sacraments_table()
+
     sys.exit(app.exec_())
 
