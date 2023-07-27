@@ -23,3 +23,20 @@ if __name__ == "__main__":
     all_parishioners = manager.get_all_parishioners()
     print(all_parishioners)
 
+    # Adding sacrament records
+    manager.add_sacrament("Baptism", "2023-01-15", "St. Mary's Church", "Fr. John Smith")
+    manager.add_sacrament("First Communion", "2023-05-20", "Holy Family Church", "Fr. James Johnson")
+    manager.add_sacrament("Confirmation", "2023-08-10", "St. Patrick's Cathedral", "Bishop Sarah Adams")
+
+    # Retrieving sacrament by ID
+    sacrament = manager.get_sacrament_by_id(1)
+    print(sacrament)
+
+    # Getting all sacraments
+    all_sacraments = manager.get_all_sacraments()
+    print(all_sacraments)
+
+    # Generating sacrament report
+    sacrament_report = manager.generate_sacrament_report()
+    print(sacrament_report)
+
