@@ -63,6 +63,36 @@ class ParishionerManager:
             ''')
             return cursor.fetchall()
 
+    def add_sacrament(self, sacrament_type, date, location=None, presiding_clergy=None):
+        with self.conn:
+            self.conn.execute('''
+                INSERT INTO sacraments (type, date, location, presiding_clergy)
+                VALUES (?, ?, ?, ?)
+            ''', (sacrament_type, date, location, presiding_clergy))
+
+    def get_sacrament_by_id(self, id):
+        with self.conn:
+            cursor = self.conn.execute('''
+                SELECT * FROM sacraments
+                WHERE id=?
+            ''', (id,))
+            return cursor.fetchone()
+
+    def get_all_sacraments(self):
+        with self.conn:
+            cursor = self.conn.execute('''
+                SELECT * FROM sacraments
+            ''')
+            return cursor.fetchall()
+
+    def generate_sacrament_report(self):
+        with self.conn:
+            cursor = self.conn.execute('''
+                SELECT * FROM sacraments
+            ''')
+            return cursor.fetchall()
+
+
     def __del__(self):
         self.conn.close()
 
