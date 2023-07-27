@@ -107,6 +107,26 @@ class SacramentsManagementGUI(QMainWindow):
                 except ValueError as e:
                     QMessageBox.warning(self, "Error", str(e))
 
+    def generate_sacrament_report(self):
+        sacraments = manager.generate_sacrament_report()
+        report_text = "Sacrament Report:\n\n"
+        for sacrament in sacraments:
+            report_text += f"ID: {sacrament[0]}\n"
+            report_text += f"Type: {sacrament[1]}\n"
+            report_text += f"Date: {sacrament[2]}\n"
+            report_text += f"Location: {sacrament[3]}\n"
+            report_text += f"Presiding Clergy: {sacrament[4]}\n"
+            report_text += "-----------------------------\n"
+
+        report_window = QMainWindow()
+        report_window.setWindowTitle("Sacrament Report")
+        report_window.setGeometry(200, 200, 500, 400)
+
+        report_label = QLabel(report_text)
+        report_window.setCentralWidget(report_label)
+
+        report_window.show()
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
@@ -117,11 +137,13 @@ if __name__ == "__main__":
     window = SacramentsManagementGUI()
     window.show()
 
-    window = SacramentsManagementGUI()
-    window.show()
-
     # Load sacrament records into the table
     window.load_sacraments_table()
+
+# Generate sacrament report
+    report_button = QPushButton("Generate Report")
+    report_button.clicked.connect(window.generate_sacrament_report)
+    layout.addWidget(report_button)
 
     sys.exit(app.exec_())
 
