@@ -1,10 +1,27 @@
 import datetime
+import sys
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QTableWidget, QTableWidgetItem, QHeaderView, QMessageBox
+
 
 class Person:
     def __init__(self, name, role):
         self.name = name
         self.role = role
         self.schedule = {}
+    def add_person(self):
+        name = self.priest_input.text().strip()
+        role = self.event_roles.index("priest")  # Assuming we are only adding priests in this example
+        preference = self.preference_input.text().strip()  # Added preference field
+        person = Person(name, role, preference)  # Updated Person constructor
+        self.ministers["priest"].append(person)
+        self.priest_input.clear()
+        self.preference_input.clear()  # Clear preference input field
+        self.update_schedule_table()
+
+    def toggle_preference_field(self):
+        # Enable the preference input field when a role other than "priest" is selected
+        is_priest = self.role_dropdown.currentText().lower() == "priest"
+        self.preference_input.setEnabled(not is_priest)
 
 class Event:
     def __init__(self, event_type, date_time, location):
@@ -29,8 +46,11 @@ class MassSchedulerGUI(QMainWindow):
         self.priest_input = QLineEdit()
         self.deacon_input = QLineEdit()
         self.other_input = QLineEdit()
-        
-        
+        self.preference_input = QLineEdit()  # Preference input field
+        self.role_dropdown = QComboBox()  # Dropdown for selecting minister role
+        self.role_dropdown.addItems(["Priest", "Deacon", "Other"])
+        self.role_dropdown.currentIndexChanged.connect(self.toggle_preference_field)
+
         # Buttons
         add_person_button = QPushButton("Add Person")
         add_person_button.clicked.connect(self.add_person)
@@ -40,6 +60,9 @@ class MassSchedulerGUI(QMainWindow):
 
         delete_event_button = QPushButton("Delete Event")
         delete_event_button.clicked.connect(self.delete_event)
+        delete_event_button = QPushButton("Delete Event")
+        delete_event_button.clicked.connect(self.delete_event)
+
 
         # Table to display the schedule
         self.schedule_table = QTableWidget(self)
@@ -63,6 +86,15 @@ class MassSchedulerGUI(QMainWindow):
         layout.addWidget(schedule_event_button)
         layout.addWidget(self.schedule_table)
         layout.addWidget(delete_event_button)
+        layout.addWidget(QLabel("Priest:"))
+        layout.addWidget(self.priest_input)
+        layout.addWidget(QLabel("Preference:"))  # Label for the preference field
+        layout.addWidget(self.preference_input)  # Preference input field
+        layout.addWidget(add_person_button)
+        layout.addWidget(schedule_event_button)
+        layout.addWidget(self.schedule_table)
+        layout.addWidget(delete_event_button)
+
 
         container = QWidget()
         container.setLayout(layout)
@@ -78,11 +110,19 @@ class MassSchedulerGUI(QMainWindow):
         self.events = []
 
     def add_person(self):
-        name = self.priest_input.text().strip()
-        role = self.event_roles.index("priest")  # Assuming we are only adding priests in this example
-        person = Person(name, role)
-        self.ministers["priest"].append(person)
-        self.priest_input.clear()
+        role = self.role_dropdown.currentText().lower()  # Get selected role from the dropdown
+
+        if not name or not role:
+            QMessageBox.warning(self, "Error", "Name and Role are required.")
+            return
+
+        # Preference field is still optional, but now it's role-specific
+        preference = self.preference_input.text().strip() if self.preference_input.isEnabled() else ""
+
+        person = Person(name, role, preference)
+        self.ministers[role].append(person)
+        self.name_input.clear()
+        self.preference_input.clear()
         self.update_schedule_table()
 
     def add_event(self):
@@ -120,6 +160,10 @@ class MassSchedulerGUI(QMainWindow):
         self.priest_input.clear()
         self.deacon_input.clear()
         self.other_input.clear()
+    def toggle_preference_field(self):
+        # Enable the preference input field when a role other than "priest" is selected
+        is_priest = self.role_dropdown.currentText().lower() == "priest"
+        self.preference_input.setEnabled(not is_priest)
 
     def update_schedule_table(self):
         self.schedule_table.setRowCount(0)
@@ -180,6 +224,16 @@ def view_schedule():
     print("Scheduled Events:")
     for event in events:
         print(f"- {event}")
+def delete_event(self):
+        selected_rows = sorted(set(index.row() for index in self.schedule_table.selectedIndexes()), reverse=True)
+        for row in selected_rows:
+            event = self.events[row]
+            for minister in event.ministers.values():
+                if event.date_time in minister.schedule:
+                    del minister.schedule[event.date_time]
+            self.events.pop(row)
+        self.update_schedule_table()
+
 
 # Sample data
 ministers = {
