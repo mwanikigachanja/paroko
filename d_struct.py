@@ -117,6 +117,42 @@ class MassSchedulerGUI(QMainWindow):
                 except ValueError:
                     QMessageBox.warning(self, "Error", "Invalid amount value. Please enter a valid number.")
 
+    def record_attendance(self):
+        date = self.attendance_date_input.text()
+        attendees = self.attendees_input.text()
+
+        try:
+            date = datetime.datetime.strptime(date, '%Y-%m-%d')
+            attendees = int(attendees)
+            manager.record_attendance(date, attendees)
+            self.update_attendance_table()
+            self.attendance_date_input.clear()
+            self.attendees_input.clear()
+        except ValueError:
+            QMessageBox.warning(self, "Error", "Invalid input. Please enter a valid date and number of attendees.")
+
+    def view_attendance_records(self):
+        attendance_records = manager.get_all_attendance_records()
+        self.attendance_table.setRowCount(len(attendance_records))
+        for row, record in enumerate(attendance_records):
+            self.attendance_table.setItem(row, 0, QTableWidgetItem(record.date.strftime('%Y-%m-%d')))
+            self.attendance_table.setItem(row, 1, QTableWidgetItem(str(record.attendees)))
+
+    def analyze_attendance_trends(self):
+        attendance_records = manager.get_all_attendance_records()
+        dates = [record.date for record in attendance_records]
+        attendees = [record.attendees for record in attendance_records]
+
+        plt.figure(figsize=(10, 6))
+        plt.plot(dates, attendees, marker='o')
+        plt.title("Mass Attendance Trends")
+        plt.xlabel("Date")
+        plt.ylabel("Number of Attendees")
+        plt.xticks(rotation=45)
+        plt.grid(True)
+        plt.tight_layout()
+        plt.show()
+
     def init_ui(self):
         # Input fields
         self.event_type_input = QLineEdit()
@@ -138,6 +174,8 @@ class MassSchedulerGUI(QMainWindow):
         self.volunteer_contact_input = QLineEdit()
         self.service_hours_input = QLineEdit()
         self.contributions_input = QLineEdit()
+        self.attendance_date_input = QLineEdit()
+        self.attendees_input = QLineEdit()
 
         # Buttons
         add_person_button = QPushButton("Add Person")
@@ -170,6 +208,15 @@ class MassSchedulerGUI(QMainWindow):
 
         track_contributions_button = QPushButton("Track Contributions")
         track_contributions_button.clicked.connect(self.track_contributions)
+        
+        record_attendance_button = QPushButton("Record Attendance")
+        record_attendance_button.clicked.connect(self.record_attendance)
+
+        view_attendance_button = QPushButton("View Attendance Records")
+        view_attendance_button.clicked.connect(self.view_attendance_records)
+
+        analyze_trends_button = QPushButton("Analyze Attendance Trends")
+        analyze_trends_button.clicked.connect(self.analyze_attendance_trends)
 
 
         # Table to display the schedule
