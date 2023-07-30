@@ -6,6 +6,7 @@ class ParishionerManager:
         self.create_table()
         self.donations = []
         self.volunteers = []
+        self.attendance_records = []
 
     def create_table(self):
         with self.conn:
@@ -126,6 +127,13 @@ class ParishionerManager:
 
     def track_contributions(self, volunteer, amount):
         volunteer.contributions += amount
+   
+   def record_attendance(self, date, attendees):
+        attendance_record = AttendanceRecord(date, attendees)
+        self.attendance_records.append(attendance_record)
+
+    def get_all_attendance_records(self):
+        return self.attendance_records
 
     def __del__(self):
         self.conn.close()
