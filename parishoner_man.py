@@ -4,6 +4,7 @@ class ParishionerManager:
     def __init__(self, db_file):
         self.conn = sqlite3.connect(db_file)
         self.create_table()
+        self.donations = []
 
     def create_table(self):
         with self.conn:
@@ -91,6 +92,22 @@ class ParishionerManager:
                 SELECT * FROM sacraments
             ''')
             return cursor.fetchall()
+
+    def add_donation(self, amount, category, date, donor_name, donor_contact):
+        donation = Donation(amount, category, date, donor_name, donor_contact)
+        self.donations.append(donation)
+        return donation
+
+    def get_all_donations(self):
+        return self.donations
+
+    def generate_financial_report(self):
+        report = {}
+        for donation in self.donations:
+            if donation.category not in report:
+                report[donation.category] = 0
+            report[donation.category] += donation.amount
+        return report
 
 
     def __del__(self):

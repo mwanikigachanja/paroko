@@ -30,6 +30,14 @@ class Event:
         self.location = location
         self.ministers = {}
 
+class Donation:
+    def __init__(self, amount, category, date, donor_name, donor_contact):
+        self.amount = amount
+        self.category = category
+        self.date = date
+        self.donor_name = donor_name
+        self.donor_contact = donor_contact
+
 class MassSchedulerGUI(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -50,6 +58,11 @@ class MassSchedulerGUI(QMainWindow):
         self.role_dropdown = QComboBox()  # Dropdown for selecting minister role
         self.role_dropdown.addItems(["Priest", "Deacon", "Other"])
         self.role_dropdown.currentIndexChanged.connect(self.toggle_preference_field)
+        self.donation_amount_input = QLineEdit()
+        self.donation_category_input = QLineEdit()
+        self.donation_date_input = QLineEdit()
+        self.donor_name_input = QLineEdit()
+        self.donor_contact_input = QLineEdit()
 
         # Buttons
         add_person_button = QPushButton("Add Person")
@@ -62,6 +75,15 @@ class MassSchedulerGUI(QMainWindow):
         delete_event_button.clicked.connect(self.delete_event)
         delete_event_button = QPushButton("Delete Event")
         delete_event_button.clicked.connect(self.delete_event)
+        add_donation_button = QPushButton("Add Donation")
+        add_donation_button.clicked.connect(self.add_donation)
+
+        view_donations_button = QPushButton("View Donations")
+        view_donations_button.clicked.connect(self.view_donations)
+
+        generate_report_button = QPushButton("Generate Financial Report")
+        generate_report_button.clicked.connect(self.generate_financial_report)
+
 
 
         # Table to display the schedule
@@ -69,6 +91,10 @@ class MassSchedulerGUI(QMainWindow):
         self.schedule_table.setColumnCount(5)
         self.schedule_table.setHorizontalHeaderLabels(["Event Type", "Date and Time", "Location", "Priest", "Deacon/Other"])
         self.schedule_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.donations_table = QTableWidget(self)
+        self.donations_table.setColumnCount(5)
+        self.donations_table.setHorizontalHeaderLabels(["Amount", "Category", "Date", "Donor Name", "Donor Contact"])
+        self.donations_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
         # Vertical layout for the main window
         layout = QVBoxLayout()
@@ -94,7 +120,10 @@ class MassSchedulerGUI(QMainWindow):
         layout.addWidget(schedule_event_button)
         layout.addWidget(self.schedule_table)
         layout.addWidget(delete_event_button)
-
+        layout.addWidget(add_donation_button)
+        layout.addWidget(view_donations_button)
+        layout.addWidget(generate_report_button)
+        layout.addWidget(self.donations_table)
 
         container = QWidget()
         container.setLayout(layout)
