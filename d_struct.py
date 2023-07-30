@@ -38,6 +38,14 @@ class Donation:
         self.donor_name = donor_name
         self.donor_contact = donor_contact
 
+class Volunteer:
+    def __init__(self, name, contact):
+        self.name = name
+        self.contact = contact
+        self.event_signups = []
+        self.service_hours = 0
+        self.contributions = 0.0
+
 class MassSchedulerGUI(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -45,6 +53,64 @@ class MassSchedulerGUI(QMainWindow):
         self.setGeometry(100, 100, 800, 600)
 
         self.init_ui()
+    def add_volunteer(self):
+        name = self.volunteer_name_input.text()
+        contact = self.volunteer_contact_input.text()
+
+        volunteer = manager.add_volunteer(name, contact)
+        self.update_volunteers_table()
+
+        # Clear input fields
+        self.volunteer_name_input.clear()
+        self.volunteer_contact_input.clear()
+
+    def sign_up_for_event(self):
+        selected_volunteer = self.volunteers_table.selectedItems()
+        selected_event = self.schedule_table.selectedItems()
+
+        if selected_volunteer and selected_event:
+            volunteer = selected_volunteer[0].text()
+            event = selected_event[0].text()
+            volunteer_obj = next((v for v in manager.get_all_volunteers() if v.name == volunteer), None)
+            event_obj = next((e for e in manager.events if str(e) == event), None)
+
+            if volunteer_obj and event_obj:
+                manager.sign_up_for_event(volunteer_obj, event_obj)
+                self.update_volunteers_table()
+
+    def track_service_hours(self):
+        selected_volunteer = self.volunteers_table.selectedItems()
+        hours = self.service_hours_input.text()
+
+        if selected_volunteer and hours:
+            volunteer = selected_volunteer[0].text()
+            volunteer_obj = next((v for v in manager.get_all_volunteers() if v.name == volunteer), None)
+
+            if volunteer_obj:
+                try:
+                    hours = float(hours)
+                    manager.track_service_hours(volunteer_obj, hours)
+                    self.update_volunteers_table()
+                    self.service_hours_input.clear()
+                except ValueError:
+                    QMessageBox.warning(self, "Error", "Invalid hours value. Please enter a valid number.")
+
+    def track_contributions(self):
+        selected_volunteer = self.volunteers_table.selectedItems()
+        amount = self.contributions_input.text()
+
+        if selected_volunteer and amount:
+            volunteer = selected_volunteer[0].text()
+            volunteer_obj = next((v for v in manager.get_all_volunteers() if v.name == volunteer), None)
+
+            if volunteer_obj:
+                try:
+                    amount = float(amount)
+                    manager.track_contributions(volunteer_obj, amount)
+                    self.update_volunteers_table()
+                    self.contributions_input.clear()
+                except ValueError:
+                    QMessageBox.warning(self, "Error", "Invalid amount value. Please enter a valid number.")
 
     def init_ui(self):
         # Input fields
@@ -63,6 +129,10 @@ class MassSchedulerGUI(QMainWindow):
         self.donation_date_input = QLineEdit()
         self.donor_name_input = QLineEdit()
         self.donor_contact_input = QLineEdit()
+        self.volunteer_name_input = QLineEdit()
+        self.volunteer_contact_input = QLineEdit()
+        self.service_hours_input = QLineEdit()
+        self.contributions_input = QLineEdit()
 
         # Buttons
         add_person_button = QPushButton("Add Person")
@@ -84,6 +154,17 @@ class MassSchedulerGUI(QMainWindow):
         generate_report_button = QPushButton("Generate Financial Report")
         generate_report_button.clicked.connect(self.generate_financial_report)
 
+        add_volunteer_button = QPushButton("Add Volunteer")
+        add_volunteer_button.clicked.connect(self.add_volunteer)
+
+        sign_up_button = QPushButton("Sign Up for Event")
+        sign_up_button.clicked.connect(self.sign_up_for_event)
+
+        track_hours_button = QPushButton("Track Service Hours")
+        track_hours_button.clicked.connect(self.track_service_hours)
+
+        track_contributions_button = QPushButton("Track Contributions")
+        track_contributions_button.clicked.connect(self.track_contributions)
 
 
         # Table to display the schedule

@@ -5,6 +5,7 @@ class ParishionerManager:
         self.conn = sqlite3.connect(db_file)
         self.create_table()
         self.donations = []
+        self.volunteers = []
 
     def create_table(self):
         with self.conn:
@@ -109,6 +110,22 @@ class ParishionerManager:
             report[donation.category] += donation.amount
         return report
 
+    def add_volunteer(self, name, contact):
+        volunteer = Volunteer(name, contact)
+        self.volunteers.append(volunteer)
+        return volunteer
+
+    def get_all_volunteers(self):
+        return self.volunteers
+
+    def sign_up_for_event(self, volunteer, event):
+        volunteer.event_signups.append(event)
+
+    def track_service_hours(self, volunteer, hours):
+        volunteer.service_hours += hours
+
+    def track_contributions(self, volunteer, amount):
+        volunteer.contributions += amount
 
     def __del__(self):
         self.conn.close()
