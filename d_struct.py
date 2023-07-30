@@ -45,6 +45,11 @@ class Volunteer:
         self.event_signups = []
         self.service_hours = 0
         self.contributions = 0.0
+        
+class AttendanceRecord:
+    def __init__(self, date, attendees):
+        self.date = date
+        self.attendees = attendees
 
 class MassSchedulerGUI(QMainWindow):
     def __init__(self):
