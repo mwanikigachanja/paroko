@@ -1,0 +1,88 @@
+# Parokia - Empowering Catholic Parishes in Kenya
+
+![Parokia Logo](parokia_logo.png)
+
+## Overview
+
+**Parokia** is a comprehensive and user-friendly application designed to streamline and empower Catholic parishes in Kenya. With Parokia, parish administrators can automate administrative functions, manage parishioner information, schedule liturgical events, track donations and offerings, manage volunteers, and monitor Mass attendance trends. Parokia aims to enhance parish efficiency, foster community engagement, and provide valuable insights for better decision-making.
+
+## Key Features
+
+### 1. Parishioner Management
+
+Parokia comes equipped with a robust database to store and manage essential parishioner information, such as names, addresses, contact details, baptism dates, marriage dates, and more. The intuitive interface allows parish administrators to add, edit, and delete parishioner records with ease.
+
+### 2. Sacraments Management
+
+Record and track sacraments performed within the parish, including Baptism, First Communion, Confirmation, Marriage, and others. Parish personnel can maintain details like date, location, presiding clergy, and other relevant information. Moreover, Parokia generates insightful reports for sacraments performed, simplifying parish records for future references.
+
+### 3. Mass and Liturgy Scheduler
+
+Parokia's advanced scheduling algorithm ensures seamless coordination of liturgical events. Schedule Masses and liturgical events, assign priests, deacons, and other ministers based on preferences and availability. The reminder system keeps the parish on track and fosters a sense of unity and punctuality among the clergy and ministers.
+
+### 4. Donations and Offerings Tracking
+
+Parokia provides an efficient system for tracking donations and offerings, allowing for categorization such as tithes, special collections, etc. The application records contribution details, enabling users to generate comprehensive financial reports to assess the parish's financial status.
+
+### 5. Volunteer Management
+
+Manage parish volunteers efficiently with Parokia. Volunteers can sign up for specific events or ministries, and the system tracks their service hours and contributions. Parish administrators can easily monitor volunteer engagement and foster a sense of community involvement.
+
+### 6. Mass Attendance Tracking
+
+Parokia includes a module to record Mass attendance, enabling users to view attendance trends and analyze attendance data. By providing valuable insights into Mass attendance, Parokia helps parish administrators understand parishioner engagement and tailor outreach efforts accordingly.
+
+## Workflow
+
+1. **Parishioner Management:**
+   - Add and manage parishioner details through an intuitive interface.
+   - Edit and update parishioner records with ease.
+   - Search and filter options enable quick retrieval of specific information.
+
+2. **Sacraments Management:**
+   - Record and organize sacraments performed within the parish.
+   - Generate insightful reports on sacraments for record-keeping and analysis.
+
+3. **Mass and Liturgy Scheduler:**
+   - Schedule Masses and liturgical events with efficiency.
+   - Seamlessly assign priests, deacons, and other ministers based on preferences and availability.
+
+4. **Donations and Offerings Tracking:**
+   - Categorize and track donations and offerings for financial record-keeping.
+   - Generate financial reports for comprehensive assessment.
+
+5. **Volunteer Management:**
+   - Enable volunteers to sign up for events or ministries.
+   - Track volunteer service hours and contributions for community involvement analysis.
+
+6. **Mass Attendance Tracking:**
+   - Record Mass attendance data for each event.
+   - Analyze attendance trends to understand parishioner engagement.
+
+## Integrations
+
+**Parokia** is designed to integrate seamlessly with various systems, providing enhanced functionality and a smoother workflow for Catholic parishes in Kenya. Possible integrations include:
+
+- **Parish Management Systems:** Integrate Parokia with existing parish management systems for enhanced data exchange and analytics.
+
+- **SMS and Email Services:** Enable automated event reminders and communication with volunteers and parishioners.
+
+- **Financial Management Software:** Facilitate the integration of financial data for accurate and detailed reporting.
+
+## Technologies Deployed
+
+**Parokia** leverages the following cutting-edge technologies:
+
+- **Backend:** Python with SQLite database for robust and efficient data management.
+
+- **Frontend:** PyQt for the development of a user-friendly and interactive graphical interface.
+
+- **Scheduling Algorithm:** Advanced algorithms to optimize event scheduling based on minister preferences.
+
+- **Reminder System:** Integration of SMS and email services for timely event notifications.
+
+- **Data Analysis:** Matplotlib for visualizing attendance trends and financial reports.
+
+## Conclusion
+
+With Parokia, Catholic parishes in Kenya can embrace digital solutions to enhance parish management, engage volunteers and parishioners, and make informed decisions based on comprehensive data analysis. Welcome to the future of empowered parish administration! Welcome to Parokia!
