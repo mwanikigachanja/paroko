@@ -158,6 +158,48 @@ class MassSchedulerGUI(QMainWindow):
         plt.grid(True)
         plt.tight_layout()
         plt.show()
+    
+    def add_bulletin(self):
+        title = self.bulletin_title_input.text()
+        content = self.bulletin_content_input.toPlainText()
+        date = self.bulletin_date_input.text()
+        # Handle attachments if required
+
+        bulletin = manager.add_bulletin(title, content, date, attachments)
+        self.update_bulletins_table()
+
+        # Clear input fields
+        self.bulletin_title_input.clear()
+        self.bulletin_content_input.clear()
+        self.bulletin_date_input.clear()
+
+    def edit_bulletin(self):
+        selected_bulletin = self.bulletins_table.selectedItems()
+
+        if selected_bulletin:
+            bulletin = selected_bulletin[0].data(Qt.UserRole)
+            new_title = self.bulletin_title_input.text()
+            new_content = self.bulletin_content_input.toPlainText()
+            new_date = self.bulletin_date_input.text()
+            # Handle attachments if required
+
+            manager.edit_bulletin(bulletin, new_title, new_content, new_date, new_attachments)
+            self.update_bulletins_table()
+
+    def delete_bulletin(self):
+        selected_bulletin = self.bulletins_table.selectedItems()
+
+        if selected_bulletin:
+            bulletin = selected_bulletin[0].data(Qt.UserRole)
+            manager.delete_bulletin(bulletin)
+            self.update_bulletins_table()
+
+    def view_bulletin(self):
+        selected_bulletin = self.bulletins_table.selectedItems()
+
+        if selected_bulletin:
+            bulletin = selected_bulletin[0].data(Qt.UserRole)
+            QMessageBox.information(self, bulletin.title, bulletin.content)
 
     def init_ui(self):
         # Input fields
@@ -182,10 +224,20 @@ class MassSchedulerGUI(QMainWindow):
         self.contributions_input = QLineEdit()
         self.attendance_date_input = QLineEdit()
         self.attendees_input = QLineEdit()
+        # Input fields for adding/editing bulletins
+        self.bulletin_title_input = QLineEdit()
+        self.bulletin_content_input = QTextEdit()
+        self.bulletin_date_input = QLineEdit()
+
 
         # Buttons
         add_person_button = QPushButton("Add Person")
         add_person_button.clicked.connect(self.add_person)
+        add_bulletin_button = QPushButton("Add Bulletin")
+        add_bulletin_button.clicked.connect(self.add_bulletin)
+        
+        edit_bulletin_button = QPushButton("Edit Bulletin")
+        edit_bulletin_button.clicked.connect(self.edit_bulletin)
 
         schedule_event_button = QPushButton("Schedule Event")
         schedule_event_button.clicked.connect(self.add_event)
@@ -194,11 +246,16 @@ class MassSchedulerGUI(QMainWindow):
         delete_event_button.clicked.connect(self.delete_event)
         delete_event_button = QPushButton("Delete Event")
         delete_event_button.clicked.connect(self.delete_event)
+        delete_bulletin_button = QPushButton("Delete Bulletin")
+        delete_bulletin_button.clicked.connect(self.delete_bulletin)
+
         add_donation_button = QPushButton("Add Donation")
         add_donation_button.clicked.connect(self.add_donation)
 
         view_donations_button = QPushButton("View Donations")
         view_donations_button.clicked.connect(self.view_donations)
+        view_bulletin_button = QPushButton("View Bulletin")
+        view_bulletin_button.clicked.connect(self.view_bulletin)
 
         generate_report_button = QPushButton("Generate Financial Report")
         generate_report_button.clicked.connect(self.generate_financial_report)
