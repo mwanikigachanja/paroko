@@ -1,0 +1,53 @@
+# Parokia - Empowering Catholic Parishes in Kenya
+
+![Parokia Logo](parokia_logo.png)
+
+## Overview
+
+**Parokia** is a comprehensive and user-friendly application designed to streamline and empower Catholic parishes in Kenya. With Parokia, parish administrators can automate administrative functions, manage parishioner information, schedule liturgical events, track donations and offerings, manage volunteers, monitor Mass attendance trends, and now, create and manage bulletins for parish news, events, and announcements.
+
+## Bulletin and Announcement Management
+
+We are excited to announce the inclusion of the Bulletin and Announcement Management module in Parokia. This new module allows parish administrators to create, edit, and delete bulletins with ease, making it effortless to publish essential parish information and announcements for the community.
+
+### Key Features
+
+- **Bulletin Creation:** Parish administrators can easily create bulletins with a title, content, and a date for publishing.
+
+- **Attachment Support:** The system supports attaching images, documents, or other relevant files to the bulletins.
+
+- **Editing and Deleting Bulletins:** Administrators can edit bulletin content, date, and attachments as needed, and they can also delete outdated bulletins.
+
+- **View and Share Digital Versions:** The application enables users to view bulletins and share digital versions with parishioners, making it simple to reach the entire community.
+
+### Workflow
+
+1. **Bulletin Creation:**
+   - Parish administrators can create bulletins using the intuitive interface.
+   - They can add a title, content, and a date for each bulletin and attach relevant files if required.
+
+2. **Edit and Delete Bulletins:**
+   - Administrators have the flexibility to edit bulletin content, dates, and attachments as needed.
+   - They can also remove outdated bulletins from the system.
+
+3. **View and Share Bulletins:**
+   - Users can view bulletins to access important parish news and announcements.
+   - They can share digital versions of bulletins to reach a wider audience within the community.
+
+### Integration
+
+The Bulletin and Announcement Management module seamlessly integrates with other existing modules in Parokia. Parish administrators can include bulletin information in event scheduling, track bulletin-related data in reports, and use it to enhance parishioner engagement through the volunteer management system.
+
+## Update Details
+
+This update brings the following enhancements to Parokia:
+
+- New "Bulletin" class to represent each bulletin.
+- Methods to add, edit, and delete bulletins within the `ParishionerManager` class.
+- Enhanced graphical user interface (GUI) to include options for creating, editing, and deleting bulletins.
+- Support for attaching files to bulletins.
+- View and share bulletins with parishioners digitally.
+
+We believe that the Bulletin and Announcement Management module will significantly enhance communication within the parish and improve community engagement. As always, we strive to provide the best tools to empower Catholic parishes in Kenya.
+
+Thank you for choosing Parokia!
