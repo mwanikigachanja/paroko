@@ -56,14 +56,93 @@ class Bulletin:
         self.content = content
         self.date = date
         self.attachments = attachments if attachments else []
+class User:
+    def __init__(self, username, password_hash, role):
+        self.username = username
+        self.password_hash = password_hash
+        self.role = role
+class UserManager:
+    def __init__(self):
+        self.users = []
+
+    def add_user(self, username, password, role):
+        # Hash the password before storing it
+        password_hash = self._hash_password(password)
+        user = User(username, password_hash, role)
+        self.users.append(user)
+
+    def authenticate_user(self, username, password):
+        # Find the user by username
+        user = next((u for u in self.users if u.username == username), None)
+
+        if user and self._check_password(password, user.password_hash):
+            return user
+        else:
+            return None
+
+    def _hash_password(self, password):
+        # Implement a secure password hashing function (e.g., bcrypt)
+        # Return the hashed password
+        pass
+
+    def _check_password(self, password, hashed_password):
+        # Implement password verification
+        # Return True if the password matches the hashed password, otherwise False
+        pass
+class Role:
+    ADMIN = "admin"
+    STAFF = "staff"
+    REGULAR_USER = "regular_user"
+    # Add more roles as needed
 
 class MassSchedulerGUI(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Mass and Liturgy Scheduler")
         self.setGeometry(100, 100, 800, 600)
+        self.user_manager = UserManager()
 
         self.init_ui()
+
+    def login(self):
+        username = self.username_input.text()
+        password = self.password_input.text()
+
+        user = self.user_manager.authenticate_user(username, password)
+
+        if user:
+            # Successful login, display functionalities based on user role
+            self.show_user_interface(user.role)
+        else:
+            QMessageBox.warning(self, "Login Failed", "Invalid username or password")
+
+    def show_user_interface(self, role):
+        # Depending on the user role, show/hide certain functionalities in the GUI
+        if role == Role.ADMIN:
+            # Show administrative functionalities
+            self.admin_tab.setEnabled(True)
+            self.staff_tab.setEnabled(True)
+            # Hide regular user functionalities if necessary
+        elif role == Role.STAFF:
+            # Show staff functionalities
+            self.staff_tab.setEnabled(True)
+            # Hide admin and regular user functionalities if necessary
+        elif role == Role.REGULAR_USER:
+            # Show regular user functionalities
+            # Hide admin and staff functionalities if necessary
+        else:
+            # Handle other roles as needed
+            pass
+
+    def logout(self):
+        # Clear user-specific data and reset GUI to initial state
+        self.username_input.clear()
+        self.password_input.clear()
+        # Hide all functionalities except login
+        self.admin_tab.setEnabled(False)
+        self.staff_tab.setEnabled(False)
+        # Hide other tabs based on user roles
+
     def add_volunteer(self):
         name = self.volunteer_name_input.text()
         contact = self.volunteer_contact_input.text()
