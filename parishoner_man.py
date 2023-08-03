@@ -7,6 +7,7 @@ class ParishionerManager:
         self.donations = []
         self.volunteers = []
         self.attendance_records = []
+        self.bulletins = []
 
     def create_table(self):
         with self.conn:
@@ -134,7 +135,22 @@ class ParishionerManager:
 
     def get_all_attendance_records(self):
         return self.attendance_records
+    
+    def add_bulletin(self, title, content, date, attachments=None):
+        bulletin = Bulletin(title, content, date, attachments)
+        self.bulletins.append(bulletin)
+        return bulletin
 
+    def edit_bulletin(self, bulletin, new_title, new_content, new_date, new_attachments=None):
+        bulletin.title = new_title
+        bulletin.content = new_content
+        bulletin.date = new_date
+        bulletin.attachments = new_attachments if new_attachments else []
+
+    def delete_bulletin(self, bulletin):
+        self.bulletins.remove(bulletin)
+
+        
     def __del__(self):
         self.conn.close()
 

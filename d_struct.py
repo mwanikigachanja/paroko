@@ -50,6 +50,12 @@ class AttendanceRecord:
     def __init__(self, date, attendees):
         self.date = date
         self.attendees = attendees
+class Bulletin:
+    def __init__(self, title, content, date, attachments=None):
+        self.title = title
+        self.content = content
+        self.date = date
+        self.attachments = attachments if attachments else []
 
 class MassSchedulerGUI(QMainWindow):
     def __init__(self):
