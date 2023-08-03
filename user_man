@@ -1,0 +1,49 @@
+# Parokia - Empowering Catholic Parishes in Kenya
+
+![Parokia Logo](parokia_logo.png)
+
+## Overview
+
+**Parokia** is a comprehensive and user-friendly application designed to streamline and empower Catholic parishes in Kenya. With Parokia, parish administrators can automate administrative functions, manage parishioner information, schedule liturgical events, track donations and offerings, manage volunteers, monitor Mass attendance trends, create and manage bulletins for parish news, events, and announcements, and now, implement user authentication and role-based access control to ensure data security and restrict access to sensitive information.
+
+## User Authentication and Access Control
+
+We are excited to introduce the new User Authentication and Access Control module in Parokia. This module adds an essential layer of security, allowing parish administrators to control access to sensitive functionalities and data based on user roles.
+
+### Key Features
+
+- **User Authentication:** Users must log in with their credentials before accessing the application.
+- **Role-Based Access Control:** Access to functionalities and data is determined by the user's assigned role.
+- **Secure Password Hashing:** Passwords are securely hashed for storage and verification.
+
+### Workflow
+
+1. **User Authentication:**
+   - Upon launching the application, users are prompted to log in with their username and password.
+   - The application verifies the credentials and grants access based on the user's role.
+
+2. **Role-Based Access Control:**
+   - Different user roles are defined, such as admin, staff, and regular user.
+   - Access to specific functionalities is restricted based on the user's role.
+   - For example, only admins may have access to sensitive administrative functionalities.
+
+3. **Secure Password Handling:**
+   - User passwords are securely hashed before being stored in the system for added security.
+   - Passwords are checked against the hashed version during login for authentication.
+
+### Integration
+
+The User Authentication and Access Control module seamlessly integrates with other existing modules in Parokia. Parish administrators can now control access to sensitive functionalities and ensure that only authorized users have access to certain information. This enhances data security and protects sensitive parish data from unauthorized access.
+
+## Update Details
+
+This update brings the following enhancements to Parokia:
+
+- New "User" class to represent each user, storing username, hashed password, and user role.
+- Methods for user authentication and user management within the application.
+- Role-based access control to functionalities based on the user's assigned role.
+- Secure password hashing for enhanced data security.
+
+The User Authentication and Access Control module is a significant step towards providing a secure and reliable application for Catholic parishes in Kenya. With this added layer of security, Parokia aims to protect sensitive parish information and ensure that the right users have access to the right functionalities.
+
+Thank you for choosing Parokia! We are committed to continually improving and empowering Catholic parishes in Kenya.
